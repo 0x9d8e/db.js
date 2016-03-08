@@ -25,6 +25,9 @@ Javascript fluent database (select only)
 
 Db.js озволяет делать выборки по заранее заданным или переданным объектам. То есть можно заранее задать набор таблиц: 
 Db.tables = {first_example_table:{}, second_example_table:{}};
+//Рекомендую передавать такие вещи на клиент с помощью fs.js https://github.com/0x9d8e/fs.js
+//Тогда это осуществляется ещё удобнее:
+//Db.tables['goods'] = fs.read('/goods');
 
 И затем использовать их по имени:
 var objects = (new Db()).select_from('first_example_table').where_type('example_type').all({some_param: 20}).execute();
