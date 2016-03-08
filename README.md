@@ -1,5 +1,5 @@
 # db.js
-Javascript fluent database (select only)
+Client-side fluent database (select only)
 
 ## Зачем
 * Избавляемся от множества циклов с выбором подходящего объекта в объекте/массиве;
