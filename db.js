@@ -2,6 +2,24 @@
  * The MIT License
  *
  * Copyright 2015 Ivan Ignatev 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  * 
  * 0x9d8e@gmail.com
  */
@@ -9,8 +27,8 @@
 function Db() {
     this.tables = Db.tables;
 
-    var _and = false,
-            _or = false,
+    var _all = false,
+            _any = false,
             _type = false,
             _table = undefined,
             _orderField = false,
@@ -31,12 +49,12 @@ function Db() {
         return this;
     };
     /**
-     * Из всей таблицы (или выборки после or) удаляет всё, что хоть как-то не подходит
+     * Из всей таблицы (или выборки после any) удаляет всё, что хоть как-то не подходит
      * @param {type} filter
      * @returns {core.m.db}
      */
-    this.and = function (filter) {
-        _and = filter;
+    this.all = function (filter) {
+        _all = filter;
         return this;
     };
     /**
@@ -44,8 +62,8 @@ function Db() {
      * @param {type} filter
      * @returns {core.m.db}
      */
-    this.or = function (filter) {
-        _or = filter;
+    this.any = function (filter) {
+        _any = filter;
         return this;
     };
     /**
@@ -89,8 +107,8 @@ function Db() {
         else
             var table = _table;//Таким образом вместо таблицы можно передавать объект/массив/результат запроса
 
-        if (typeof _or === 'object') {
-            var filter = _or;
+        if (typeof _any === 'object') {
+            var filter = _any;
             for (var key in filter) {
                 tmpSelection = this._incluse(key, filter[key], table, tmpSelection);
             }
@@ -98,8 +116,8 @@ function Db() {
             for (var key in table.data)
                 tmpSelection[key] = true;
 
-        if (typeof _and === 'object') {
-            var filter = _and;
+        if (typeof _all === 'object') {
+            var filter = _all;
             for (var key in filter) {
                 tmpSelection = this._excluse(key, filter[key], table, tmpSelection);
             }
