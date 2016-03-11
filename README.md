@@ -94,9 +94,7 @@ function Fruit(fruit) {
 
 
 Или, допустим, нам нужно яблоко и/или лимон:
-
 var apple_and_lemon = (new Db()).select_from({data:fruits}).any({alias: ['banana', 'lemon']}).execute();
-
 console.log(apple_and_lemon);
 
 ## Ближайшие планы
