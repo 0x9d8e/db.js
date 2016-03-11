@@ -1,6 +1,8 @@
 # db.js
 Client-side fluent database (select only)
 
+Извиняюсь за оформление :)
+
 ## Зачем
 * Избавляемся от множества циклов с выбором подходящего объекта в объекте/массиве;
 * Сокращаем запросы к серверу;
@@ -96,6 +98,20 @@ function Fruit(fruit) {
 Или, допустим, нам нужно яблоко и/или лимон:
 var apple_and_lemon = (new Db()).select_from({data:fruits}).any({alias: ['banana', 'lemon']}).execute();
 console.log(apple_and_lemon);
+
+## Совместно с fs.js
+(см. https://github.com/0x9d8e/fs.js)
+
+Таблица может быть получена с помощью fs.js:
+
+var rocks = (new Db()).select_from( fs.read('/objects_table') ).where_type('rock').order_by('weight', 'DESC').execute();
+
+Кроме того, с помощью db.js можно даже искать файлы в fs.js. Допустим, получим все инициализированные json-файлы:
+
+var json_files = (new M.Db()).select_from(fs).where_type('json').all({init: true}).execute(true);
+//Либо можно было так: (new M.Db()).select_from(fs).all({type: 'json', init: true}).execute(true);
+console.log(json_files);
+
 
 ## Ближайшие планы
 
